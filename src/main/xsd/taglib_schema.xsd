@@ -1,5 +1,5 @@
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
-           targetNamespace="http://java.sun.com/xml/ns/javaee" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+           elementFormDefault="qualified" targetNamespace="http://java.sun.com/xml/ns/javaee">
     <xs:element name="function-name" type="xs:string"/>
     <xs:element name="function-class" type="xs:string"/>
     <xs:element name="function-signature" type="xs:string"/>
@@ -12,11 +12,11 @@
     <xs:element name="attribute">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="jav:description" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:name" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:required" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:type" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:defaultValue" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:description"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:name"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:required"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:type"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:defaultValue"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -24,8 +24,8 @@
     <xs:element name="behavior">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="jav:behavior-id" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:handler-class" minOccurs="0" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:behavior-id"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:handler-class" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -33,9 +33,9 @@
     <xs:element name="component">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="jav:component-type" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:renderer-type" minOccurs="0" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:handler-class" minOccurs="0" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:component-type"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:renderer-type" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:handler-class" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -45,32 +45,33 @@
     <xs:element name="function">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="jav:function-name" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:function-class" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:function-signature" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:function-name"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:function-class"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:function-signature"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:description"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="tag">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="jav:tag-name" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:description" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:handler-class" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:behavior" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:component" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:attribute" xmlns:jav="http://java.sun.com/xml/ns/javaee" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:tag-name"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:description"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:handler-class"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:behavior"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:component"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:attribute" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="facelet-taglib">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="jav:namespace" xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:function" maxOccurs="unbounded" minOccurs="0"
-                            xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
-                <xs:element ref="jav:tag" maxOccurs="unbounded" minOccurs="0"
-                            xmlns:jav="http://java.sun.com/xml/ns/javaee"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:namespace"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:function" maxOccurs="unbounded"
+                            minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:tag" maxOccurs="unbounded"
+                            minOccurs="0"/>
             </xs:sequence>
             <xs:attribute type="xs:float" name="version"/>
         </xs:complexType>

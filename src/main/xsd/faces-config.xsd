@@ -1,0 +1,131 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://java.sun.com/xml/ns/javaee">
+    <xs:element name="partial-view-context-factory" type="xs:string"/>
+    <xs:element name="phase-listener" type="xs:string"/>
+    <xs:element name="system-event-listener-class" type="xs:string"/>
+    <xs:element name="system-event-class" type="xs:string"/>
+    <xs:element name="source-class" type="xs:string"/>
+    <xs:element name="resource-handler" type="xs:string"/>
+    <xs:element name="system-event-listener">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:system-event-listener-class"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:system-event-class"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:source-class" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="behavior-id" type="xs:string"/>
+    <xs:element name="behavior-class" type="xs:string"/>
+    <xs:element name="faces-context-factory" type="xs:string"/>
+    <xs:element name="validator-id" type="xs:string"/>
+    <xs:element name="validator-class" type="xs:string"/>
+    <xs:element name="converter-id" type="xs:string"/>
+    <xs:element name="converter-class" type="xs:string"/>
+    <xs:element name="converter-for-class" type="xs:string"/>
+    <xs:element name="component-type" type="xs:string"/>
+    <xs:element name="component-class" type="xs:string"/>
+    <xs:element name="component-family" type="xs:string"/>
+    <xs:element name="renderer-type" type="xs:string"/>
+    <xs:element name="renderer-class" type="xs:string"/>
+    <xs:element name="client-behavior-renderer-type" type="xs:string"/>
+    <xs:element name="client-behavior-renderer-class" type="xs:string"/>
+    <xs:element name="renderer">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:component-family"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:renderer-type"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:renderer-class"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="client-behavior-renderer">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:client-behavior-renderer-type"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:client-behavior-renderer-class"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="name" type="xs:string"/>
+    <xs:element name="factory">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:partial-view-context-factory"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="lifecycle">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:phase-listener" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="application">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:resource-handler"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:system-event-listener" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="behavior">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:behavior-id" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:behavior-class" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:faces-context-factory" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="validator">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:validator-id"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:validator-class"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="converter">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:converter-id" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:converter-for-class" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:converter-class"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="component">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:component-type"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:component-class"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="render-kit">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:renderer" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:client-behavior-renderer"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="faces-config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:name"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:factory"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:lifecycle"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:application"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:behavior" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:validator" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:converter" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:component" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element xmlns:jav="http://java.sun.com/xml/ns/javaee" ref="jav:render-kit"/>
+            </xs:sequence>
+            <xs:attribute type="xs:float" name="version"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

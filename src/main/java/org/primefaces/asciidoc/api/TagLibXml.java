@@ -1,16 +1,19 @@
-package org.primefaces.asciidoc;
+package org.primefaces.asciidoc.api;
 
-import org.primefaces.taglib.FaceletTaglib;
-import org.primefaces.taglib.Tag;
+import java.io.File;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
+
+import org.primefaces.taglib.FaceletTaglib;
+import org.primefaces.taglib.Function;
+import org.primefaces.taglib.Tag;
 
 public class TagLibXml {
 
-    private FaceletTaglib taglib;
+    private final FaceletTaglib taglib;
 
     public TagLibXml(String path) {
         File file = new File(path);
@@ -35,5 +38,9 @@ public class TagLibXml {
         }
 
         return null;
+    }
+
+    public List<Function> getAllFunctions() {
+        return taglib.getFunction();
     }
 }

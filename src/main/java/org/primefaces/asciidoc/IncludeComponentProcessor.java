@@ -1,30 +1,21 @@
 package org.primefaces.asciidoc;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.asciidoctor.ast.DocumentRuby;
 import org.asciidoctor.extension.IncludeProcessor;
 import org.asciidoctor.extension.PreprocessorReader;
+import org.primefaces.facesconfig.Component;
+import org.primefaces.facesconfig.Renderer;
 import org.primefaces.taglib.Tag;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import javax.xml.bind.JAXBException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import java.io.*;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class IncludeComponentProcessor extends IncludeProcessor {
 
@@ -53,9 +44,24 @@ public class IncludeComponentProcessor extends IncludeProcessor {
     }
 
     protected String processComponent(String tagName) {
-        Tag tag =  PFAsciiDoc.INSTANCE.findTag(tagName);
         Template tpl = PFAsciiDoc.INSTANCE.getTemplate("component.ftl");
-        Map<String, Tag> map = Collections.singletonMap("tag", tag);
+        Tag tag =  PFAsciiDoc.INSTANCE.findTag(tagName);
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("tag", tag);
+
+        if (tag.getComponent() != null) {
+            Component component = PFAsciiDoc.INSTANCE.findComponent(tag.getComponent().getComponentType());
+            Renderer renderer = PFAsciiDoc.INSTANCE.findRenderer(tag.getComponent().getRendererType());
+            map.put("component", component);
+            map.put("renderer", renderer);
+        }
+
+        if (tag.getBehavior() != null) {
+            map.put("behavior", tag.getBehavior());
+        }
+
+
         Writer writer = new StringWriter();
         try {
             tpl.process(map, writer);

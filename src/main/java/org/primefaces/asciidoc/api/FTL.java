@@ -1,10 +1,11 @@
-package org.primefaces.asciidoc;
-
-import freemarker.core.ParseException;
-import freemarker.template.*;
+package org.primefaces.asciidoc.api;
 
 import java.io.File;
 import java.io.IOException;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateExceptionHandler;
 
 public class FTL {
 
@@ -12,7 +13,7 @@ public class FTL {
 
     public FTL(String path) {
         try {
-            config = new Configuration(Configuration.VERSION_2_3_27);
+            config = new Configuration(Configuration.getVersion());
             config.setDirectoryForTemplateLoading(new File(path));
             config.setDefaultEncoding("UTF-8");
             config.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
