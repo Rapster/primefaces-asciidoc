@@ -46,6 +46,10 @@ public class IncludeComponentProcessor extends IncludeProcessor {
     protected String processComponent(String tagName) {
         Template tpl = PFAsciiDoc.INSTANCE.getTemplate("component.ftl");
         Tag tag =  PFAsciiDoc.INSTANCE.findTag(tagName);
+        if (tag == null) {
+            throw new IllegalArgumentException("Tag name not found: " + tagName);
+        }
+
         Map<String, Object> map = new HashMap<>();
 
         map.put("tag", tag);
