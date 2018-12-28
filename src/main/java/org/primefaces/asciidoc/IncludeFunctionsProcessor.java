@@ -1,18 +1,12 @@
 package org.primefaces.asciidoc;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import org.asciidoctor.ast.DocumentRuby;
-import org.asciidoctor.extension.IncludeProcessor;
 import org.asciidoctor.extension.PreprocessorReader;
 
-public class IncludeFunctionsProcessor extends IncludeProcessor {
+public class IncludeFunctionsProcessor extends PFIncludeProcessor {
 
     public IncludeFunctionsProcessor(Map<String, Object> config) {
         super(config);
@@ -24,27 +18,18 @@ public class IncludeFunctionsProcessor extends IncludeProcessor {
     }
 
     @Override
-    public void process(DocumentRuby documentRuby, PreprocessorReader reader, String s, Map<String, Object> config) {
-        if (!PFAsciiDoc.INSTANCE.isReady()) {
-            PFAsciiDoc.INSTANCE.init(documentRuby.getAttributes());
-        }
-
-        String out = processFunctions();
-        reader.push_include(out, s, s, 1, config);
+    public Object getDataModel(DocumentRuby documentRuby, PreprocessorReader reader, String s, Map<String, Object> config) {
+        return processDataModel();
     }
 
-    protected String processFunctions() {
-        Template tpl = PFAsciiDoc.INSTANCE.getTemplate("functions.ftl");
+    @Override
+    protected String getTemplate() {
+        return "functions.ftl";
+    }
+
+    protected Map<String, Object> processDataModel() {
         Map<String, Object> map = new HashMap<>();
         map.put("functions", PFAsciiDoc.INSTANCE.getAllFunctions());
-
-        Writer writer = new StringWriter();
-        try {
-            tpl.process(map, writer);
-        }
-        catch (TemplateException | IOException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
-        return writer.toString();
+        return map;
     }
 }
