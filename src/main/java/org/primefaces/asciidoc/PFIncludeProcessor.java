@@ -29,7 +29,7 @@ public abstract class PFIncludeProcessor extends IncludeProcessor {
     }
 
     protected String ftl(String template, Object dataModel) {
-        Template tpl = PFAsciiDoc.INSTANCE.getTemplate(template);
+        Template tpl = PFAsciiDoc.INSTANCE.findTemplate(template);
         Writer writer = new StringWriter();
         try {
             tpl.process(dataModel, writer);

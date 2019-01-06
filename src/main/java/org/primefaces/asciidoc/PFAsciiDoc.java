@@ -42,7 +42,7 @@ public class PFAsciiDoc {
         return tagLibXml.findTag(name);
     }
 
-    public Template getTemplate(String name) {
+    public Template findTemplate(String name) {
         return ftl.getTemplate(name);
     }
 

@@ -3,6 +3,7 @@ package org.primefaces.asciidoc;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -13,6 +14,8 @@ import java.util.regex.Pattern;
 
 import org.asciidoctor.ast.DocumentRuby;
 import org.asciidoctor.extension.PreprocessorReader;
+import org.primefaces.asciidoc.js.JSDocParser;
+import org.primefaces.asciidoc.js.model.ClientAPI;
 import org.primefaces.facesconfig.Component;
 import org.primefaces.facesconfig.Renderer;
 import org.primefaces.taglib.Tag;
@@ -34,7 +37,7 @@ public class IncludeComponentProcessor extends PFIncludeProcessor {
     public Object getDataModel(DocumentRuby documentRuby, PreprocessorReader reader, String s, Map<String, Object> config) {
         Matcher matcher = COMPONENT_PATTERN.matcher(s);
         if (matcher.matches()) {
-            return processDataModel(matcher.group(1), documentRuby.getAttributes());
+            return processDataModel(matcher.group(1), documentRuby.getAttributes(), config);
         }
 
         return Collections.emptyMap();
@@ -45,7 +48,7 @@ public class IncludeComponentProcessor extends PFIncludeProcessor {
         return "component.ftl";
     }
 
-    protected Map<String, Object> processDataModel(String tagName, Map<String, Object> config) {
+    protected Map<String, Object> processDataModel(String tagName, Map<String, Object> attributes, Map<String, Object> config) {
         Tag tag =  PFAsciiDoc.INSTANCE.findTag(tagName);
         if (tag == null) {
             throw new IllegalArgumentException("Tag name not found: " + tagName);
@@ -65,24 +68,39 @@ public class IncludeComponentProcessor extends PFIncludeProcessor {
             map.put("behavior", tag.getBehavior());
         }
 
-        String content = readADOCComponentFile(tagName, config);
+        String content = readADOCComponentFile(tagName, attributes);
         map.put("content", content);
+
+        map.put("clientApi", getClientAPI(tagName, attributes, config));
         return map;
     }
 
-    protected String readADOCComponentFile(String tagName, Map<String, Object> config) {
-        String pathDoc = (String) config.get("components");
+    protected String readADOCComponentFile(String tagName, Map<String, Object> attributes) {
+        String pathDoc = (String) attributes.get("components");
         if (pathDoc == null) {
             return null;
         }
 
-        Path pathFile = Paths.get(pathDoc, "_" + tagName + ".adoc");
         try {
+            Path pathFile = Paths.get(pathDoc, "_" + tagName + ".adoc");
             byte[] bytes = Files.readAllBytes(pathFile);
             return new String(bytes, StandardCharsets.UTF_8);
         }
-        catch (IOException e) {
+        catch (IOException | InvalidPathException e) {
             throw new IllegalArgumentException("Can't read " + pathDoc, e);
         }
+    }
+
+    protected ClientAPI getClientAPI(String tagName, Map<String, Object> attributes, Map<String, Object> config) {
+        String pathDoc = (String) attributes.get("js");
+        if (pathDoc == null) {
+            return null;
+        }
+
+        Path pathFile = config.containsKey("js")
+                        ? Paths.get(pathDoc, (String) config.get("js")).normalize()
+                        : Paths.get(pathDoc, tagName.toLowerCase(), tagName.toLowerCase() + ".js").normalize();
+        return JSDocParser.getClientAPI(pathFile);
+
     }
 }
