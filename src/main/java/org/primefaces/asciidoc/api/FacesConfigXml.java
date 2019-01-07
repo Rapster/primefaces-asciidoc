@@ -26,10 +26,6 @@ public class FacesConfigXml {
         }
     }
 
-    public boolean isReady() {
-        return facesConfig != null;
-    }
-
     public Component findComponent(String componentType) {
         for (Component component : facesConfig.getComponent()) {
             if (component.getComponentType().equals(componentType)) {

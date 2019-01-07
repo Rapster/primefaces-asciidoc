@@ -26,10 +26,6 @@ public class TagLibXml {
         }
     }
 
-    public boolean isReady() {
-        return taglib != null;
-    }
-
     public Tag findTag(String name) {
         for(Tag tag : taglib.getTag()) {
             if (tag.getTagName().equals(name)) {

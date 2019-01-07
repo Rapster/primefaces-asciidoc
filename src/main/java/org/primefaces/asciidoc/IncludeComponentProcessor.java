@@ -100,7 +100,7 @@ public class IncludeComponentProcessor extends PFIncludeProcessor {
         Path pathFile = config.containsKey("js")
                         ? Paths.get(pathDoc, (String) config.get("js")).normalize()
                         : Paths.get(pathDoc, tagName.toLowerCase(), tagName.toLowerCase() + ".js").normalize();
-        return JSDocParser.getClientAPI(pathFile);
+        return JSDocParser.parseClientAPI(pathFile);
 
     }
 }

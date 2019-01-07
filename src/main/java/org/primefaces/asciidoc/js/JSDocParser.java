@@ -28,7 +28,7 @@ public final class JSDocParser {
         // NOOP
     }
 
-    public static ClientAPI getClientAPI(Path jsFile) {
+    public static ClientAPI parseClientAPI(Path jsFile) {
         ClientAPI clientAPI = new ClientAPI();
 
         try {
